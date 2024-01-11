@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "deltacore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rileytestut/DeltaCore.git",
+      "state" : {
+        "branch" : "visionOS",
+        "revision" : "9f8137c08ce24c19701f84e2f2cf56ad18657506"
+      }
+    },
+    {
+      "identity" : "gbadeltacore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rileytestut/GBADeltaCore.git",
+      "state" : {
+        "branch" : "visionOS",
+        "revision" : "9bd18298a272a8187de39446f677252c6d9de42c"
+      }
+    },
+    {
+      "identity" : "zipfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/weichsel/ZIPFoundation.git",
+      "state" : {
+        "revision" : "a3f5c2bae0f04b0bce9ef3c4ba6bd1031a0564c4",
+        "version" : "0.9.17"
+      }
+    }
+  ],
+  "version" : 2
+}

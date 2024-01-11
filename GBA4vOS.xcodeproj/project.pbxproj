@@ -12,6 +12,12 @@
 		D5A450992B508B9D00C9E5AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450982B508B9D00C9E5AA /* ContentView.swift */; };
 		D5A4509B2B508B9E00C9E5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */; };
 		D5A4509E2B508B9E00C9E5AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A4509D2B508B9E00C9E5AA /* Preview Assets.xcassets */; };
+		D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */; };
+		D5A450AC2B508C4200C9E5AA /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450AB2B508C4200C9E5AA /* GameView.swift */; };
+		D5A450AE2B508CAD00C9E5AA /* Emerald.gba in Resources */ = {isa = PBXBuildFile; fileRef = D5A450AD2B508CA900C9E5AA /* Emerald.gba */; };
+		D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */ = {isa = PBXBuildFile; productRef = D5A450C52B509CAD00C9E5AA /* GBADeltaCore */; };
+		D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450C72B50A3CD00C9E5AA /* Game.swift */; };
+		D5A450CA2B50A51F00C9E5AA /* WrappedGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,11 @@
 		D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5A4509D2B508B9E00C9E5AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D5A4509F2B508B9E00C9E5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLibraryView.swift; sourceTree = "<group>"; };
+		D5A450AB2B508C4200C9E5AA /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		D5A450AD2B508CA900C9E5AA /* Emerald.gba */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emerald.gba; sourceTree = "<group>"; };
+		D5A450C72B50A3CD00C9E5AA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A450952B508B9D00C9E5AA /* RealityKitContent in Frameworks */,
+				D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,9 +69,14 @@
 			isa = PBXGroup;
 			children = (
 				D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */,
-				D5A450982B508B9D00C9E5AA /* ContentView.swift */,
+				D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */,
+				D5A450AB2B508C4200C9E5AA /* GameView.swift */,
+				D5A450C72B50A3CD00C9E5AA /* Game.swift */,
+				D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */,
+				D5A450AD2B508CA900C9E5AA /* Emerald.gba */,
 				D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */,
 				D5A4509F2B508B9E00C9E5AA /* Info.plist */,
+				D5A450982B508B9D00C9E5AA /* ContentView.swift */,
 				D5A4509C2B508B9E00C9E5AA /* Preview Content */,
 			);
 			path = GBA4vOS;
@@ -99,6 +116,7 @@
 			name = GBA4vOS;
 			packageProductDependencies = (
 				D5A450942B508B9D00C9E5AA /* RealityKitContent */,
+				D5A450C52B509CAD00C9E5AA /* GBADeltaCore */,
 			);
 			productName = GBA4vOS;
 			productReference = D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */;
@@ -128,6 +146,9 @@
 				Base,
 			);
 			mainGroup = D5A450862B508B9D00C9E5AA;
+			packageReferences = (
+				D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */,
+			);
 			productRefGroup = D5A450902B508B9D00C9E5AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A450AE2B508CAD00C9E5AA /* Emerald.gba in Resources */,
 				D5A4509E2B508B9E00C9E5AA /* Preview Assets.xcassets in Resources */,
 				D5A4509B2B508B9E00C9E5AA /* Assets.xcassets in Resources */,
 			);
@@ -155,7 +177,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A450992B508B9D00C9E5AA /* ContentView.swift in Sources */,
+				D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */,
 				D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */,
+				D5A450AC2B508C4200C9E5AA /* GameView.swift in Sources */,
+				D5A450CA2B50A51F00C9E5AA /* WrappedGameView.swift in Sources */,
+				D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +233,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"SWIFT_PACKAGE=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -265,6 +292,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -356,10 +384,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rileytestut/GBADeltaCore.git";
+			requirement = {
+				branch = visionOS;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		D5A450942B508B9D00C9E5AA /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
+		};
+		D5A450C52B509CAD00C9E5AA /* GBADeltaCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */;
+			productName = GBADeltaCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
