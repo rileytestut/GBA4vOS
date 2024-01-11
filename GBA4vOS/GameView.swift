@@ -14,7 +14,7 @@ struct GameView: View
     let game: Game?
     
     var body: some View {
-        WrappedGameView(game: game)
+        VisionGameViewController.Wrapped(game: game)
             .navigationTitle(game?.name ?? "No Game")
     }
 }

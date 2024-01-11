@@ -17,7 +17,7 @@
 		D5A450AE2B508CAD00C9E5AA /* Emerald.gba in Resources */ = {isa = PBXBuildFile; fileRef = D5A450AD2B508CA900C9E5AA /* Emerald.gba */; };
 		D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */ = {isa = PBXBuildFile; productRef = D5A450C52B509CAD00C9E5AA /* GBADeltaCore */; };
 		D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450C72B50A3CD00C9E5AA /* Game.swift */; };
-		D5A450CA2B50A51F00C9E5AA /* WrappedGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */; };
+		D5A450D32B50B11100C9E5AA /* VisionGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450D22B50B11100C9E5AA /* VisionGameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +33,7 @@
 		D5A450AD2B508CA900C9E5AA /* Emerald.gba */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emerald.gba; sourceTree = "<group>"; };
 		D5A450C72B50A3CD00C9E5AA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedGameView.swift; sourceTree = "<group>"; };
+		D5A450D22B50B11100C9E5AA /* VisionGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,11 +73,12 @@
 				D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */,
 				D5A450AB2B508C4200C9E5AA /* GameView.swift */,
 				D5A450C72B50A3CD00C9E5AA /* Game.swift */,
-				D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */,
+				D5A450D22B50B11100C9E5AA /* VisionGameViewController.swift */,
 				D5A450AD2B508CA900C9E5AA /* Emerald.gba */,
 				D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */,
 				D5A4509F2B508B9E00C9E5AA /* Info.plist */,
 				D5A450982B508B9D00C9E5AA /* ContentView.swift */,
+				D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */,
 				D5A4509C2B508B9E00C9E5AA /* Preview Content */,
 			);
 			path = GBA4vOS;
@@ -177,10 +179,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5A450992B508B9D00C9E5AA /* ContentView.swift in Sources */,
+				D5A450D32B50B11100C9E5AA /* VisionGameViewController.swift in Sources */,
 				D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */,
 				D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */,
 				D5A450AC2B508C4200C9E5AA /* GameView.swift in Sources */,
-				D5A450CA2B50A51F00C9E5AA /* WrappedGameView.swift in Sources */,
 				D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

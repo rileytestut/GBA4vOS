@@ -22,6 +22,25 @@ struct GBA4vOSApp: App {
     init()
     {
         Delta.register(GBA.core)
+        
+        ExternalGameControllerManager.shared.startMonitoring()
+        
+        #if targetEnvironment(simulator)
+                
+        // Ignore hardware keyboard in simulator by default.
+        for controller in ExternalGameControllerManager.shared.connectedControllers
+        {
+            if controller is KeyboardGameController
+            {
+                controller.playerIndex = nil
+            }
+            else
+            {
+                controller.playerIndex = 0
+            }
+        }
+        
+        #endif
     }
     
     var body: some Scene {

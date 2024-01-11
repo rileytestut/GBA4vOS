@@ -15,14 +15,13 @@ struct WrappedGameView: UIViewControllerRepresentable
     
     func makeUIViewController(context: Context) -> GameViewController
     {
-        let gameViewController = GameViewController()
+        let gameViewController = VisionGameViewController()
         gameViewController.game = game
         return gameViewController
     }
     
     func updateUIViewController(_ gameViewController: GameViewController, context: Context)
     {
-        gameViewController.controllerView.isHidden = true
     }
 }
 
