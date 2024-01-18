@@ -45,7 +45,7 @@ struct GBA4vOSApp: App {
     
     var body: some Scene {
         WindowGroup(id: SceneType.main.rawValue) {
-            GameLibraryView()
+            ChooseGameView()
         }
         
         WindowGroup(id: SceneType.game.rawValue, for: Game.self) { $game in
