@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D5A450952B508B9D00C9E5AA /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D5A450942B508B9D00C9E5AA /* RealityKitContent */; };
 		D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */; };
-		D5A450992B508B9D00C9E5AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450982B508B9D00C9E5AA /* ContentView.swift */; };
 		D5A4509B2B508B9E00C9E5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */; };
 		D5A4509E2B508B9E00C9E5AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5A4509D2B508B9E00C9E5AA /* Preview Assets.xcassets */; };
 		D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */; };
@@ -22,9 +20,7 @@
 
 /* Begin PBXFileReference section */
 		D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBA4vOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5A450932B508B9D00C9E5AA /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBA4vOSApp.swift; sourceTree = "<group>"; };
-		D5A450982B508B9D00C9E5AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5A4509D2B508B9E00C9E5AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D5A4509F2B508B9E00C9E5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,7 +37,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5A450952B508B9D00C9E5AA /* RealityKitContent in Frameworks */,
 				D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +72,6 @@
 				D5A450AD2B508CA900C9E5AA /* Emerald.gba */,
 				D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */,
 				D5A4509F2B508B9E00C9E5AA /* Info.plist */,
-				D5A450982B508B9D00C9E5AA /* ContentView.swift */,
 				D5A450C92B50A51F00C9E5AA /* WrappedGameView.swift */,
 				D5A4509C2B508B9E00C9E5AA /* Preview Content */,
 			);
@@ -87,7 +81,6 @@
 		D5A450922B508B9D00C9E5AA /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				D5A450932B508B9D00C9E5AA /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -117,7 +110,6 @@
 			);
 			name = GBA4vOS;
 			packageProductDependencies = (
-				D5A450942B508B9D00C9E5AA /* RealityKitContent */,
 				D5A450C52B509CAD00C9E5AA /* GBADeltaCore */,
 			);
 			productName = GBA4vOS;
@@ -178,7 +170,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5A450992B508B9D00C9E5AA /* ContentView.swift in Sources */,
 				D5A450D32B50B11100C9E5AA /* VisionGameViewController.swift in Sources */,
 				D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */,
 				D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */,
@@ -398,10 +389,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D5A450942B508B9D00C9E5AA /* RealityKitContent */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityKitContent;
-		};
 		D5A450C52B509CAD00C9E5AA /* GBADeltaCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */;
