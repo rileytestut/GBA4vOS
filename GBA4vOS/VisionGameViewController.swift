@@ -57,6 +57,7 @@ class VisionGameViewController: GameViewController
     {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .clear
         self.controllerView.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didConnectGameController(_:)), name: .externalGameControllerDidConnect, object: nil)
