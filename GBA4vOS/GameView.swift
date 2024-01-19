@@ -23,6 +23,8 @@ struct GameView: View
     @State
     private var isFastForwarding: Bool = false
     
+    @State
+    private var isShowingToolbar: Bool = true
     
     @Environment(\.modelContext)
     private var context
@@ -43,10 +45,15 @@ struct GameView: View
     var body: some View {
         VisionGameViewController.Wrapped(game: game) { core in DispatchQueue.main.async { self.emulatorCore = core } }
             .navigationTitle(game?.name ?? "No Game")
-            .ornament(visibility: .visible, attachmentAnchor: .scene(.bottom), contentAlignment: .top) {
+            .ornament(visibility: self.isShowingToolbar ? .visible : .hidden, attachmentAnchor: .scene(.bottom), contentAlignment: .top) {
                 VStack {
                     Spacer(minLength: 10)
                     pauseMenuOrnament
+                }
+            }
+            .onTapGesture {
+                withAnimation {
+                    self.isShowingToolbar.toggle()
                 }
             }
     }
