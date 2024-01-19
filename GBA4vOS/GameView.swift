@@ -56,6 +56,9 @@ struct GameView: View
                     self.isShowingToolbar.toggle()
                 }
             }
+            .onDisappear {
+                self.emulatorCore?.stop()
+            }
     }
     
     @ViewBuilder
