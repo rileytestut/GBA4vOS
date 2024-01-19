@@ -15,16 +15,29 @@ extension VisionGameViewController
     struct Wrapped: UIViewControllerRepresentable
     {
         let game: Game?
+        let coreHandler: (EmulatorCore) -> Void
         
         func makeUIViewController(context: Context) -> GameViewController
         {
             let gameViewController = VisionGameViewController()
             gameViewController.game = game
+            
+            if let emulatorCore = gameViewController.emulatorCore
+            {
+                self.coreHandler(emulatorCore)
+            }
+            
             return gameViewController
         }
         
         func updateUIViewController(_ gameViewController: GameViewController, context: Context)
         {
+        }
+        
+        init(game: Game?, coreHandler: @escaping (EmulatorCore) -> Void)
+        {
+            self.game = game
+            self.coreHandler = coreHandler
         }
     }
 }
