@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D52D0D3F2B59D4C6009AAFCD /* ChooseGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D0D3E2B59D4C6009AAFCD /* ChooseGameView.swift */; };
 		D56365922B5B1646001364DC /* SaveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365912B5B1646001364DC /* SaveState.swift */; };
 		D56365952B5B291F001364DC /* ModelContainer+GBA4vOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */; };
 		D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D52D0D3E2B59D4C6009AAFCD /* ChooseGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGameView.swift; sourceTree = "<group>"; };
 		D56365912B5B1646001364DC /* SaveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveState.swift; sourceTree = "<group>"; };
 		D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+GBA4vOS.swift"; sourceTree = "<group>"; };
 		D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBA4vOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */,
+				D52D0D3E2B59D4C6009AAFCD /* ChooseGameView.swift */,
 				D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */,
 				D5A450AB2B508C4200C9E5AA /* GameView.swift */,
 				D5A450C72B50A3CD00C9E5AA /* Game.swift */,
@@ -188,6 +191,7 @@
 				D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */,
 				D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */,
 				D56365952B5B291F001364DC /* ModelContainer+GBA4vOS.swift in Sources */,
+				D52D0D3F2B59D4C6009AAFCD /* ChooseGameView.swift in Sources */,
 				D56365922B5B1646001364DC /* SaveState.swift in Sources */,
 				D5A450AC2B508C4200C9E5AA /* GameView.swift in Sources */,
 				D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */,
