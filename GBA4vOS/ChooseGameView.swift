@@ -8,6 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+import DeltaCore
+
 extension UTType
 {
     static let gbaGame = UTType(filenameExtension: "gba")!
@@ -47,6 +49,23 @@ private extension ChooseGameView
         defer {
             fileURL.stopAccessingSecurityScopedResource()
         }
+        
+        #if targetEnvironment(simulator)
+                
+        // Ignore hardware keyboard in simulator by default.
+        for controller in ExternalGameControllerManager.shared.connectedControllers
+        {
+            if controller is KeyboardGameController
+            {
+                controller.playerIndex = nil
+            }
+            else
+            {
+                controller.playerIndex = 0
+            }
+        }
+
+        #endif
         
         do
         {
