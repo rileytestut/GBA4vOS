@@ -107,7 +107,7 @@ private extension VisionGameViewController
 
 #Preview {
     let fileURL = Bundle.main.url(forResource: "Emerald", withExtension: "gba")!
-    let game = Game(fileURL: fileURL)
+    let game = try! Game(fileURL: fileURL)
         
     let viewController = VisionGameViewController()
     viewController.game = game
