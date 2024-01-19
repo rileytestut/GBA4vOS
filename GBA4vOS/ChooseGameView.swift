@@ -48,8 +48,15 @@ private extension ChooseGameView
             fileURL.stopAccessingSecurityScopedResource()
         }
         
-        let game = Game(fileURL: fileURL)
-        openWindow(id: SceneType.game.rawValue, value: game)
+        do
+        {
+            let game = try Game(fileURL: fileURL)
+            openWindow(id: SceneType.game.rawValue, value: game)
+        }
+        catch
+        {
+            print("Invalid game at path \(fileURL).", error.localizedDescription)
+        }
     }
 }
 

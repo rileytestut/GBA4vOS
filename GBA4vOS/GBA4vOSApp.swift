@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 import DeltaCore
 import GBADeltaCore
@@ -47,11 +48,13 @@ struct GBA4vOSApp: App {
         WindowGroup(id: SceneType.main.rawValue) {
             ChooseGameView()
         }
+        .modelContainer(.main)
         
         WindowGroup(id: SceneType.game.rawValue, for: Game.self) { $game in
             GameView(game: game)
         }
         .defaultSize(width: 480 * 2, height: 320 * 2)
         .windowResizability(.contentSize)
+        .modelContainer(.main)
     }
 }

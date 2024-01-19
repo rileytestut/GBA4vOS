@@ -14,7 +14,8 @@ struct GameLibraryView: View {
     
     @State
     var games: [Game] = [
-        Game(fileURL: Bundle.main.url(forResource: "Emerald", withExtension: "gba")!)
+        try! Game(fileURL: Bundle.main.url(forResource: "Emerald", withExtension: "gba")!),
+        try! Game(fileURL: Bundle.main.url(forResource: "Twisted", withExtension: "gba")!)
     ]
     
     @Environment(\.openWindow)
