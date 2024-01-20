@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "delta.png",
       "idiom" : "vision",
       "scale" : "2x"
     }
