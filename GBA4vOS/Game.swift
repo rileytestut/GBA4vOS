@@ -42,3 +42,23 @@ extension Game: Identifiable
         return self.sha1
     }
 }
+
+extension Game
+{
+    static func gamesDirectory() -> URL
+    {
+        let databaseDirectory = URL.documentsDirectory.appending(path: "Database")
+        let gamesDirectory = databaseDirectory.appending(path: "Games", directoryHint: .isDirectory)
+        
+        do
+        {
+            try FileManager.default.createDirectory(at: gamesDirectory, withIntermediateDirectories: true)
+        }
+        catch
+        {
+            print("Failed to create Games directory.", error.localizedDescription)
+        }
+        
+        return gamesDirectory
+    }
+}
