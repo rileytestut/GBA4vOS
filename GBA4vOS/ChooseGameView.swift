@@ -69,12 +69,19 @@ private extension ChooseGameView
         
         do
         {
-            let game = try Game(fileURL: fileURL)
+            let destinationURL = Game.gamesDirectory().appending(path: fileURL.lastPathComponent)
+            
+            if !FileManager.default.fileExists(atPath: destinationURL.path)
+            {
+                try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+            }
+            
+            let game = try Game(fileURL: destinationURL)
             openWindow(id: SceneType.game.rawValue, value: game)
         }
         catch
         {
-            print("Invalid game at path \(fileURL).", error.localizedDescription)
+            print("Failed to launch game at path \(fileURL).", error.localizedDescription)
         }
     }
 }
