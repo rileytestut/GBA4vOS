@@ -17,6 +17,8 @@ extension VisionGameViewController
         let game: Game?
         let coreHandler: (EmulatorCore) -> Void
         
+        let deltaSkin: DeltaSkin?
+        
         func makeUIViewController(context: Context) -> GameViewController
         {
             let gameViewController = VisionGameViewController()
@@ -32,11 +34,20 @@ extension VisionGameViewController
         
         func updateUIViewController(_ gameViewController: GameViewController, context: Context)
         {
+            if let deltaSkin
+            {
+                gameViewController.controllerView.controllerSkin = deltaSkin.skin
+            }
+            else
+            {
+                gameViewController.controllerView.controllerSkin = nil
+            }
         }
         
-        init(game: Game?, coreHandler: @escaping (EmulatorCore) -> Void)
+        init(game: Game?, skin: DeltaSkin?, coreHandler: @escaping (EmulatorCore) -> Void)
         {
             self.game = game
+            self.deltaSkin = skin
             self.coreHandler = coreHandler
         }
     }
@@ -58,7 +69,9 @@ class VisionGameViewController: GameViewController
         super.viewDidLoad()
         
         self.view.backgroundColor = .clear
-        self.controllerView.isHidden = true
+
+        let traits = ControllerSkin.Traits(device: .iphone, displayType: .standard, orientation: .landscape)
+        self.controllerView.overrideControllerSkinTraits = traits
         
         NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didConnectGameController(_:)), name: .externalGameControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didDisconnectGameController(_:)), name: .externalGameControllerDidDisconnect, object: nil)
@@ -70,6 +83,27 @@ class VisionGameViewController: GameViewController
         
         self.updateGameControllers()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if let window = self.view.window
+        {
+            var traits = ControllerSkin.Traits.defaults(for: window)
+            
+            if traits.orientation == .portrait
+            {
+                traits.displayType = .edgeToEdge // Use edge-to-edge display type for portrait skins
+            }
+            
+            if traits != self.controllerView.overrideControllerSkinTraits
+            {
+                self.controllerView.overrideControllerSkinTraits = traits
+                self.controllerView.controllerSkin = self.controllerView.controllerSkin
+            }
+        }
+    }
 }
 
 private extension VisionGameViewController
@@ -77,6 +111,22 @@ private extension VisionGameViewController
     func updateGameControllers()
     {
         guard let emulatorCore = self.emulatorCore else { return }
+        
+        let isExternalControllerConnected = ExternalGameControllerManager.shared.connectedControllers.contains(where: { $0.playerIndex != nil })
+        if isExternalControllerConnected
+        {
+            self.controllerView.playerIndex = nil
+            self.controllerView.removeReceiver(emulatorCore)
+            
+            self.controllerView.isHidden = true
+        }
+        else
+        {
+            self.controllerView.playerIndex = 0
+            self.controllerView.addReceiver(emulatorCore)
+            
+            self.controllerView.isHidden = false
+        }
         
         for controller in ExternalGameControllerManager.shared.connectedControllers
         {
