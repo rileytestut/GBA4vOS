@@ -19,7 +19,10 @@ extension VisionGameViewController
         
         let deltaSkin: DeltaSkin?
         
-        func makeUIViewController(context: Context) -> GameViewController
+        @Binding
+        var isShowingMenu: Bool
+        
+        func makeUIViewController(context: Context) -> VisionGameViewController
         {
             let gameViewController = VisionGameViewController()
             gameViewController.game = game
@@ -32,7 +35,7 @@ extension VisionGameViewController
             return gameViewController
         }
         
-        func updateUIViewController(_ gameViewController: GameViewController, context: Context)
+        func updateUIViewController(_ gameViewController: VisionGameViewController, context: Context)
         {
             if let deltaSkin
             {
@@ -42,12 +45,19 @@ extension VisionGameViewController
             {
                 gameViewController.controllerView.controllerSkin = nil
             }
+            
+            gameViewController.isShowingMenu = isShowingMenu
+            
+            gameViewController.showMenuHandler = { isShowingMenu in
+                self.isShowingMenu = isShowingMenu
+            }
         }
         
-        init(game: Game?, skin: DeltaSkin?, coreHandler: @escaping (EmulatorCore) -> Void)
+        init(game: Game?, skin: DeltaSkin?, isShowingMenu: Binding<Bool>, coreHandler: @escaping (EmulatorCore) -> Void)
         {
             self.game = game
             self.deltaSkin = skin
+            self._isShowingMenu = isShowingMenu
             self.coreHandler = coreHandler
         }
     }
@@ -55,6 +65,10 @@ extension VisionGameViewController
 
 class VisionGameViewController: GameViewController
 {
+    var showMenuHandler: ((Bool) -> Void)?
+    
+    fileprivate var isShowingMenu: Bool = false
+    
     required init()
     {
         super.init()
@@ -68,6 +82,7 @@ class VisionGameViewController: GameViewController
     {
         super.viewDidLoad()
         
+        self.delegate = self
         self.view.backgroundColor = .clear
 
         let traits = ControllerSkin.Traits(device: .iphone, displayType: .standard, orientation: .landscape)
@@ -153,6 +168,16 @@ private extension VisionGameViewController
     func didDisconnectGameController(_ notification: Notification)
     {
         self.updateGameControllers()
+    }
+}
+
+extension VisionGameViewController: GameViewControllerDelegate
+{
+    func gameViewController(_ gameViewController: GameViewController, handleMenuInputFrom gameController: GameController) 
+    {
+        self.isShowingMenu.toggle()
+        
+        self.showMenuHandler?(self.isShowingMenu)
     }
 }
 
