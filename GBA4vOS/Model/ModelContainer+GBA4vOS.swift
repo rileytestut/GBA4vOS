@@ -14,7 +14,7 @@ extension ModelContainer
     static let main: ModelContainer = {
         do
         {
-            let container = try ModelContainer(for: SaveState.self)
+            let container = try ModelContainer(for: SaveState.self, DeltaSkin.self)
             return container
         }
         catch
@@ -27,7 +27,7 @@ extension ModelContainer
     static let preview: ModelContainer = {
         do
         {
-            let container = try ModelContainer(for: SaveState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            let container = try ModelContainer(for: SaveState.self, DeltaSkin.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
             return container
         }
         catch

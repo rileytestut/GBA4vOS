@@ -37,7 +37,6 @@ struct GBA4vOSApp: App {
             GameView(game: game)
         }
         .defaultSize(width: 480 * 2, height: 320 * 2)
-        .windowResizability(.contentSize)
         .modelContainer(.main)
     }
 }

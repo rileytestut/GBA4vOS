@@ -18,6 +18,9 @@ struct GameView: View
     private var emulatorCore: EmulatorCore?
     
     @State
+    private var deltaSkin: DeltaSkin?
+    
+    @State
     private var isPaused: Bool = false
     
     @State
@@ -26,11 +29,17 @@ struct GameView: View
     @State
     private var isShowingToolbar: Bool = true
     
+    @State
+    private var isImportingSkin: Bool = false
+    
     @Environment(\.modelContext)
     private var context
     
     @Query // Configured in init
     private var saveStates: [SaveState] = []
+    
+    @AppStorage("preferredSkinID")
+    private var preferredSkinID: String?
     
     init(game: Game?)
     {
@@ -43,7 +52,7 @@ struct GameView: View
     
     @ViewBuilder
     var body: some View {
-        VisionGameViewController.Wrapped(game: game) { core in DispatchQueue.main.async { self.emulatorCore = core } }
+        VisionGameViewController.Wrapped(game: game, skin: deltaSkin) { core in DispatchQueue.main.async { self.emulatorCore = core } }
             .navigationTitle(game?.name ?? "No Game")
             .ornament(visibility: self.isShowingToolbar ? .visible : .hidden, attachmentAnchor: .scene(.bottom), contentAlignment: .top) {
                 VStack {
@@ -55,9 +64,43 @@ struct GameView: View
                 withAnimation {
                     self.isShowingToolbar.toggle()
                 }
+                
+                self.emulatorCore?.resume()
+            }
+            .onChange(of: deltaSkin?.id, updateDeltaSkin)
+            .onAppear {
+                do
+                {
+                    let preferredSkinID = self.preferredSkinID ?? ""
+                    let fetchDescriptor = FetchDescriptor<DeltaSkin>(predicate: #Predicate<DeltaSkin> { $0.identifier == preferredSkinID })
+                    
+                    if let deltaSkin = try context.fetch(fetchDescriptor).first
+                    {
+                        self.deltaSkin = deltaSkin
+                    }
+                    else if let game, let controllerSkin = ControllerSkin.standardControllerSkin(for: game.type)
+                    {
+                        self.deltaSkin = DeltaSkin(controllerSkin: controllerSkin)
+                    }
+                }
+                catch
+                {
+                    print("Failed to load preferred delta skin.", error.localizedDescription)
+                }
             }
             .onDisappear {
                 self.emulatorCore?.stop()
+            }
+            .fileImporter(isPresented: $isImportingSkin, allowedContentTypes: [.deltaSkin]) { result in
+                do
+                {
+                    let fileURL = try result.get()
+                    try importDeltaSkin(at: fileURL)
+                }
+                catch
+                {
+                    print("Failed to import skin.", error.localizedDescription)
+                }
             }
     }
     
@@ -106,6 +149,11 @@ struct GameView: View
             }
             .help("Load Save State")
             .disabled(saveStates.isEmpty) // Disable unless there are save states to load
+            
+            Divider()
+                .padding(.horizontal, 8)
+            
+            DeltaSkinsMenu(game: self.game, selection: $deltaSkin, isImportingSkin: $isImportingSkin)
         }
         .buttonStyle(.borderless)
         .padding()
@@ -210,6 +258,37 @@ private extension GameView
         {
             emulatorCore.resume()
         }
+    }
+}
+
+private extension GameView
+{
+    func importDeltaSkin(at fileURL: URL) throws
+    {
+        guard fileURL.startAccessingSecurityScopedResource() else { return }
+        defer {
+            fileURL.stopAccessingSecurityScopedResource()
+        }
+        
+        let destinationURL = DeltaSkin.skinsDirectory().appending(path: fileURL.lastPathComponent)
+        
+        if FileManager.default.fileExists(atPath: destinationURL.path)
+        {
+            try FileManager.default.removeItem(at: destinationURL)
+        }
+        
+        try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+        
+        guard let deltaSkin = DeltaSkin(fileURL: destinationURL) else { throw CocoaError(.fileReadCorruptFile) }
+        self.context.insert(deltaSkin)
+        
+        // Immediately update to new skin
+        self.deltaSkin = deltaSkin
+    }
+    
+    func updateDeltaSkin()
+    {
+        self.preferredSkinID = self.deltaSkin?.identifier
     }
 }
 
