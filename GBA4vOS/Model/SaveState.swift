@@ -12,8 +12,8 @@ import DeltaCore
 @Model
 final class SaveState
 {
-    @Attribute(.unique)
-    let id: UUID
+    @Attribute(.unique, originalName: "id")
+    let identifier: UUID
     
     // Store just game's ID vs full relationship
     let gameID: String
@@ -23,7 +23,7 @@ final class SaveState
     
     init(game: Game)
     {
-        self.id = UUID()
+        self.identifier = UUID()
         self.gameID = game.id
         
         let date = Date.now
@@ -46,7 +46,7 @@ extension SaveState: SaveStateProtocol
     var fileURL: URL {
         let directoryURL = SaveState.saveStatesDirectory(forGameID: self.gameID)
         
-        let fileURL = directoryURL.appendingPathComponent(self.id.uuidString)
+        let fileURL = directoryURL.appendingPathComponent(self.identifier.uuidString)
         return fileURL
     }
 }
