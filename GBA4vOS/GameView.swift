@@ -52,7 +52,7 @@ struct GameView: View
     
     @ViewBuilder
     var body: some View {
-        VisionGameViewController.Wrapped(game: game, skin: deltaSkin) { core in DispatchQueue.main.async { self.emulatorCore = core } }
+        VisionGameViewController.Wrapped(game: game, skin: deltaSkin, isShowingMenu: $isShowingToolbar.animation()) { core in DispatchQueue.main.async { self.emulatorCore = core } }
             .navigationTitle(game?.name ?? "No Game")
             .ornament(visibility: self.isShowingToolbar ? .visible : .hidden, attachmentAnchor: .scene(.bottom), contentAlignment: .top) {
                 VStack {
@@ -61,8 +61,12 @@ struct GameView: View
                 }
             }
             .onTapGesture {
-                withAnimation {
-                    self.isShowingToolbar.toggle()
+                if deltaSkin == nil
+                {
+                    // Only toggle ornament visibility with tap if there's no skin.
+                    withAnimation {
+                        self.isShowingToolbar.toggle()
+                    }
                 }
                 
                 self.emulatorCore?.resume()
