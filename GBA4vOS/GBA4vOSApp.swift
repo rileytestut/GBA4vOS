@@ -36,6 +36,7 @@ struct GBA4vOSApp: App {
         WindowGroup(id: SceneType.game.rawValue, for: Game.self) { $game in
             GameView(game: game)
         }
+        .windowStyle(.plain)
         .defaultSize(width: 480 * 2, height: 320 * 2)
         .modelContainer(.main)
     }
