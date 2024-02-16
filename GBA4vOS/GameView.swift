@@ -247,7 +247,8 @@ struct GameView: View
             DeltaSkinsMenu(game: self.game, selection: $deltaSkin, isImportingSkin: $isImportingSkin)
         }
         .buttonStyle(.borderless)
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 8)
         .glassBackgroundEffect()
     }
 }
