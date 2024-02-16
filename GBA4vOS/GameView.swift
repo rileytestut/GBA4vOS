@@ -6,13 +6,27 @@
 //
 
 import SwiftUI
+import GameController
 import SwiftData
+import AVFoundation
 
 import DeltaCore
+import GBADeltaCore
+
+private class DummyGameController: NSObject, GameController
+{
+    var name: String { "GameView" }
+    var playerIndex: Int?
+    
+    var inputType: GameControllerInputType { .standard }
+    var defaultInputMapping: DeltaCore.GameControllerInputMappingProtocol?
+}
 
 struct GameView: View
 {
     let game: Game?
+    
+    private let inputGameController = DummyGameController()
     
     @State
     private var emulatorCore: EmulatorCore?
@@ -32,6 +46,15 @@ struct GameView: View
     @State
     private var isImportingSkin: Bool = false
     
+    @State
+    private var isRotationEnabled: Bool = false
+    
+    @State
+    private var zRotation = Rotation3D()
+    
+    @State
+    private var zStartRotation = Rotation3D()
+    
     @Environment(\.modelContext)
     private var context
     
@@ -44,6 +67,7 @@ struct GameView: View
     init(game: Game?)
     {
         self.game = game
+        self.inputGameController.playerIndex = 0
         
         let gameID = game?.id ?? ""
         self._saveStates = Query(filter: #Predicate<SaveState> { $0.gameID == gameID },
@@ -51,7 +75,7 @@ struct GameView: View
     }
     
     @ViewBuilder
-    var body: some View {
+    private var contentView: some View {
         VisionGameViewController.Wrapped(game: game, skin: deltaSkin, isShowingMenu: $isShowingToolbar.animation()) { core in DispatchQueue.main.async { self.emulatorCore = core } }
             .navigationTitle(game?.name ?? "No Game")
             .ornament(visibility: self.isShowingToolbar ? .visible : .hidden, attachmentAnchor: .scene(.bottom), contentAlignment: .top) {
@@ -61,7 +85,7 @@ struct GameView: View
                 }
             }
             .onTapGesture {
-                if deltaSkin == nil
+                if deltaSkin == nil && !isRotationEnabled
                 {
                     // Only toggle ornament visibility with tap if there's no skin.
                     withAnimation {
@@ -71,41 +95,104 @@ struct GameView: View
                 
                 self.emulatorCore?.resume()
             }
-            .onChange(of: deltaSkin?.id, updateDeltaSkin)
-            .onAppear {
-                do
-                {
-                    let preferredSkinID = self.preferredSkinID ?? ""
-                    let fetchDescriptor = FetchDescriptor<DeltaSkin>(predicate: #Predicate<DeltaSkin> { $0.identifier == preferredSkinID })
-                    
-                    if let deltaSkin = try context.fetch(fetchDescriptor).first
-                    {
-                        self.deltaSkin = deltaSkin
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            //TODO: Figure out why this approach didn't work...
+//            let gesture = DragGesture(minimumDistance: 0)
+//                .updating($isPressingScreen) { (_, isPressing, _) in
+//                    isPressing = true
+//                }
+            
+            let tapGesture = TapGesture(count: 1).onEnded {
+                activateInput(.a)
+                
+                // I hate using timers like this, but YOLO.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.03) {
+                    deactivateInput(.a)
+                }
+            }
+            
+            // Scale contentView so it can rotate without being clipped by window bounds.
+            let scale = scale(for: geometry)
+            contentView
+                .glassBackgroundEffect(in: RoundedRectangle(cornerRadius: 20),
+                                       displayMode: isRotationEnabled ? .never : .always)
+                .scaleEffect(CGSize(width: scale, height: scale), anchor: .center)
+                .rotation3DEffect(zRotation)
+                .simultaneousGesture(rotateGesture.exclusively(before: tapGesture))
+        }
+        .onLongPressGesture {
+            withAnimation { isShowingToolbar.toggle() }
+        }
+        .overlay {
+            // Show floating buttons in corners when rotation is enabled.
+            Color.clear
+                .if(isRotationEnabled && isShowingToolbar) {
+                    $0.overlay(alignment: .bottomTrailing) {
+                        controllerButton(for: .a)
                     }
-                    else if let game, let controllerSkin = ControllerSkin.standardControllerSkin(for: game.type)
-                    {
-                        self.deltaSkin = DeltaSkin(controllerSkin: controllerSkin)
+                    .overlay(alignment: .bottomLeading) {
+                        controllerButton(for: .b)
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        controllerButton(for: .start)
                     }
                 }
-                catch
+        }
+        .onChange(of: isRotationEnabled, initial: true) { _, isRotationEnabled in
+            guard isRotationEnabled else { return }
+            self.deltaSkin = nil
+        }
+        .onChange(of: emulatorCore) {
+            guard let emulatorCore else { return }
+            inputGameController.addReceiver(emulatorCore)
+        }
+        .onChange(of: deltaSkin?.id, updateDeltaSkin)
+        .onAppear {
+            do
+            {
+                guard !isRotationEnabled else { return }
+                
+                let preferredSkinID = self.preferredSkinID ?? ""
+                let fetchDescriptor = FetchDescriptor<DeltaSkin>(predicate: #Predicate<DeltaSkin> { $0.identifier == preferredSkinID })
+                
+                if let deltaSkin = try context.fetch(fetchDescriptor).first
                 {
-                    print("Failed to load preferred delta skin.", error.localizedDescription)
+                    self.deltaSkin = deltaSkin
+                }
+                else if let game, let controllerSkin = ControllerSkin.standardControllerSkin(for: game.type)
+                {
+                    self.deltaSkin = DeltaSkin(controllerSkin: controllerSkin)
                 }
             }
-            .onDisappear {
-                self.emulatorCore?.stop()
+            catch
+            {
+                print("Failed to load preferred delta skin.", error.localizedDescription)
             }
-            .fileImporter(isPresented: $isImportingSkin, allowedContentTypes: [.deltaSkin]) { result in
-                do
-                {
-                    let fileURL = try result.get()
-                    try importDeltaSkin(at: fileURL)
-                }
-                catch
-                {
-                    print("Failed to import skin.", error.localizedDescription)
-                }
+        }
+        .onDisappear {
+            self.emulatorCore?.stop()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: GBA.didActivateGyroNotification).receive(on: RunLoop.main)) { _ in
+            isRotationEnabled = true
+        }
+        //FIXME: This breaks pausing
+//        .onReceive(NotificationCenter.default.publisher(for: GBA.didDeactivateGyroNotification).receive(on: RunLoop.main)) { _ in
+//            isRotationEnabled = false
+//        }
+        .fileImporter(isPresented: $isImportingSkin, allowedContentTypes: [.deltaSkin]) { result in
+            do
+            {
+                let fileURL = try result.get()
+                try importDeltaSkin(at: fileURL)
             }
+            catch
+            {
+                print("Failed to import skin.", error.localizedDescription)
+            }
+        }
     }
     
     @ViewBuilder
@@ -267,6 +354,69 @@ private extension GameView
 
 private extension GameView
 {
+    var rotateGesture: some Gesture {
+        RotateGesture3D(constrainedToAxis: .z)
+            .onChanged { value in
+                self.handleRotation(value)
+            }
+            .onEnded { value in
+                self.zStartRotation = self.zRotation
+            }
+    }
+    
+    @ViewBuilder
+    func controllerButton(for input: StandardGameControllerInput) -> some View
+    {
+        Button(action: {}) {
+            Text(input.stringValue.capitalized)
+                .padding()
+        }
+        .buttonStyle(.bordered)
+        .onLongPressGesture(minimumDuration: 0.0, maximumDistance: 0.0, perform: {
+            // Ignore
+        }, onPressingChanged: { isPressed in
+            if isPressed
+            {
+                activateInput(input)
+            }
+            else
+            {
+                deactivateInput(input)
+            }
+        })
+    }
+    
+    func scale(for geometry: GeometryProxy) -> Double
+    {
+        guard self.isRotationEnabled else { return 1.0 }
+        
+        let frame = geometry.frame(in: .local)
+        
+        let preferredSize = CGSize(width: 480 * 2, height: 320 * 2)
+        let aspectFrame = AVMakeRect(aspectRatio: preferredSize, insideRect: frame)
+        let hypotenuse = sqrt(pow(aspectFrame.width, 2) + pow(aspectFrame.height, 2))
+        
+        let scaleX = frame.width / hypotenuse
+        let scaleY = frame.height / hypotenuse
+        
+        let scale = min(scaleX, scaleY)
+        
+        return scale
+    }
+    
+    func activateInput(_ input: StandardGameControllerInput)
+    {
+        self.inputGameController.activate(input)
+    }
+    
+    func deactivateInput(_ input: StandardGameControllerInput)
+    {
+        self.inputGameController.deactivate(input)
+    }
+}
+
+private extension GameView
+{
     func importDeltaSkin(at fileURL: URL) throws
     {
         guard fileURL.startAccessingSecurityScopedResource() else { return }
@@ -293,6 +443,20 @@ private extension GameView
     func updateDeltaSkin()
     {
         self.preferredSkinID = self.deltaSkin?.identifier
+    }
+}
+
+private extension GameView
+{
+    func handleRotation(_ value: RotateGesture3D.Value)
+    {
+        var rotationRate = Vector3D(x: 0, y: 0, z: 0)
+        rotationRate.z = value.velocity(about: .z).radians
+        
+        self.zRotation = self.zStartRotation.rotated(by: value.rotation)
+        
+        let controllerRotation = GBARotation(rotation: value.rotation, rate: rotationRate)
+        GBAEmulatorBridge.shared.controllerRotation = controllerRotation
     }
 }
 

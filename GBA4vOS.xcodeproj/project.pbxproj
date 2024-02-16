@@ -10,6 +10,7 @@
 		D52D0D3F2B59D4C6009AAFCD /* ChooseGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52D0D3E2B59D4C6009AAFCD /* ChooseGameView.swift */; };
 		D54A6A622B7AE15D0014DAD9 /* DeltaSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54A6A612B7AE15D0014DAD9 /* DeltaSkin.swift */; };
 		D54A6A6B2B7AE7FF0014DAD9 /* DeltaSkinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54A6A6A2B7AE7FF0014DAD9 /* DeltaSkinsView.swift */; };
+		D55359F72B80112900DA0307 /* View+If.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55359F62B80112900DA0307 /* View+If.swift */; };
 		D56365922B5B1646001364DC /* SaveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365912B5B1646001364DC /* SaveState.swift */; };
 		D56365952B5B291F001364DC /* ModelContainer+GBA4vOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */; };
 		D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */; };
@@ -27,6 +28,7 @@
 		D52D0D3E2B59D4C6009AAFCD /* ChooseGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGameView.swift; sourceTree = "<group>"; };
 		D54A6A612B7AE15D0014DAD9 /* DeltaSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaSkin.swift; sourceTree = "<group>"; };
 		D54A6A6A2B7AE7FF0014DAD9 /* DeltaSkinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaSkinsView.swift; sourceTree = "<group>"; };
+		D55359F62B80112900DA0307 /* View+If.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+If.swift"; sourceTree = "<group>"; };
 		D56365912B5B1646001364DC /* SaveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveState.swift; sourceTree = "<group>"; };
 		D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+GBA4vOS.swift"; sourceTree = "<group>"; };
 		D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBA4vOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D55359F52B80111B00DA0307 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D55359F62B80112900DA0307 /* View+If.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D56365932B5B23EA001364DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +102,7 @@
 				D5A450C72B50A3CD00C9E5AA /* Game.swift */,
 				D56365932B5B23EA001364DC /* Model */,
 				D5A450D22B50B11100C9E5AA /* VisionGameViewController.swift */,
+				D55359F52B80111B00DA0307 /* Extensions */,
 				D5A450AD2B508CA900C9E5AA /* Emerald.gba */,
 				D5A4509A2B508B9E00C9E5AA /* Assets.xcassets */,
 				D5A4509F2B508B9E00C9E5AA /* Info.plist */,
@@ -196,6 +207,7 @@
 				D5A450D32B50B11100C9E5AA /* VisionGameViewController.swift in Sources */,
 				D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */,
 				D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */,
+				D55359F72B80112900DA0307 /* View+If.swift in Sources */,
 				D54A6A6B2B7AE7FF0014DAD9 /* DeltaSkinsView.swift in Sources */,
 				D56365952B5B291F001364DC /* ModelContainer+GBA4vOS.swift in Sources */,
 				D52D0D3F2B59D4C6009AAFCD /* ChooseGameView.swift in Sources */,

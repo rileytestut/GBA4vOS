@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 import DeltaCore
+import GBADeltaCore
 
 extension VisionGameViewController
 {
@@ -68,6 +69,9 @@ class VisionGameViewController: GameViewController
     var showMenuHandler: ((Bool) -> Void)?
     
     fileprivate var isShowingMenu: Bool = false
+    private var isRotationEnabled: Bool = false
+    
+    private var aspectRatioConstraint: NSLayoutConstraint?
     
     required init()
     {
@@ -84,12 +88,17 @@ class VisionGameViewController: GameViewController
         
         self.delegate = self
         self.view.backgroundColor = .clear
+        self.gameView.clipsToBounds = true
 
         let traits = ControllerSkin.Traits(device: .iphone, displayType: .standard, orientation: .landscape)
         self.controllerView.overrideControllerSkinTraits = traits
         
         NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didConnectGameController(_:)), name: .externalGameControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didDisconnectGameController(_:)), name: .externalGameControllerDidDisconnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didActivateGyro(_:)), name: GBA.didActivateGyroNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VisionGameViewController.didDeactivateGyro(_:)), name: GBA.didDeactivateGyroNotification, object: nil)
+        
+        self.update()
     }
     
     override func viewDidAppear(_ animated: Bool) 
@@ -123,6 +132,25 @@ class VisionGameViewController: GameViewController
 
 private extension VisionGameViewController
 {
+    func update()
+    {
+        if self.isRotationEnabled
+        {
+            if self.aspectRatioConstraint == nil
+            {
+                self.aspectRatioConstraint = self.view.widthAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 480.0/320)
+            }
+            
+            self.aspectRatioConstraint?.isActive = true
+            self.gameView.layer.cornerRadius = 20 // Round corners ourselves
+        }
+        else
+        {
+            self.aspectRatioConstraint?.isActive = false
+            self.gameView.layer.cornerRadius = 0 // Let GameView round corners
+        }
+    }
+    
     func updateGameControllers()
     {
         guard let emulatorCore = self.emulatorCore else { return }
@@ -168,6 +196,34 @@ private extension VisionGameViewController
     func didDisconnectGameController(_ notification: Notification)
     {
         self.updateGameControllers()
+    }
+    
+    func didActivateGyro(_ notification: Notification)
+    {
+        DispatchQueue.main.async {
+            self.isRotationEnabled = true
+            
+            guard let windowScene = self.view.window?.windowScene else { return }
+            
+            let preferredSize = CGSize(width: 480 * 2, height: 320 * 2)
+            let hypotenuse = sqrt(pow(preferredSize.width, 2) + pow(preferredSize.height, 2))
+            
+            let scale = hypotenuse / preferredSize.width
+            
+            let windowSize = CGSize(width: preferredSize.width * scale, height: preferredSize.width * scale)
+            windowScene.requestGeometryUpdate(.Vision(size: windowSize, minimumSize: windowSize.applying(.init(scaleX: 0.5, y: 0.5)))) { error in
+                print("Failed to update geometry:", error)
+            }
+            
+            self.update()
+        }
+    }
+    
+    func didDeactivateGyro(_ notification: Notification)
+    {
+        DispatchQueue.main.async {
+            self.isRotationEnabled = false
+        }
     }
 }
 
