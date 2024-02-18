@@ -456,7 +456,7 @@ private extension GameView
         
         self.zRotation = self.zStartRotation.rotated(by: value.rotation)
         
-        let controllerRotation = GBARotation(rotation: value.rotation, rate: rotationRate)
+        let controllerRotation = GBARotation(rotation: value.rotation, rate: -rotationRate)
         GBAEmulatorBridge.shared.controllerRotation = controllerRotation
     }
 }
