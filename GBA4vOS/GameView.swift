@@ -28,31 +28,31 @@ struct GameView: View
     
     private let inputGameController = DummyGameController()
     
-    @State
+    @SwiftUI.State
     private var emulatorCore: EmulatorCore?
     
-    @State
+    @SwiftUI.State
     private var deltaSkin: DeltaSkin?
     
-    @State
+    @SwiftUI.State
     private var isPaused: Bool = false
     
-    @State
+    @SwiftUI.State
     private var isFastForwarding: Bool = false
     
-    @State
+    @SwiftUI.State
     private var isShowingToolbar: Bool = true
     
-    @State
+    @SwiftUI.State
     private var isImportingSkin: Bool = false
     
-    @State
+    @SwiftUI.State
     private var isRotationEnabled: Bool = false
     
-    @State
+    @SwiftUI.State
     private var zRotation = Rotation3D()
     
-    @State
+    @SwiftUI.State
     private var zStartRotation = Rotation3D()
     
     @Environment(\.modelContext)

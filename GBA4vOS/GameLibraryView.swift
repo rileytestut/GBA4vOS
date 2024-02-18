@@ -12,7 +12,7 @@ import GBADeltaCore
 
 struct GameLibraryView: View {
     
-    @State
+    @SwiftUI.State
     var games: [Game] = [
         try! Game(fileURL: Bundle.main.url(forResource: "Emerald", withExtension: "gba")!),
         try! Game(fileURL: Bundle.main.url(forResource: "Twisted", withExtension: "gba")!)

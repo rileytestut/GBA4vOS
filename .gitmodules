@@ -1,0 +1,9 @@
+[submodule "Dependencies/GBADeltaCore"]
+	path = Dependencies/GBADeltaCore
+	url = https://github.com/rileytestut/GBADeltaCore
+[submodule "Dependencies/GBCDeltaCore"]
+	path = Dependencies/GBCDeltaCore
+	url = https://github.com/rileytestut/GBCDeltaCore
+[submodule "Dependencies/DeltaCore"]
+	path = Dependencies/DeltaCore
+	url = https://github.com/rileytestut/DeltaCore
