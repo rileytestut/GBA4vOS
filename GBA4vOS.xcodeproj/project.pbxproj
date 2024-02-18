@@ -11,6 +11,10 @@
 		D54A6A622B7AE15D0014DAD9 /* DeltaSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54A6A612B7AE15D0014DAD9 /* DeltaSkin.swift */; };
 		D54A6A6B2B7AE7FF0014DAD9 /* DeltaSkinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54A6A6A2B7AE7FF0014DAD9 /* DeltaSkinsView.swift */; };
 		D55359F72B80112900DA0307 /* View+If.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55359F62B80112900DA0307 /* View+If.swift */; };
+		D5535A232B819EF500DA0307 /* DeltaCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5535A222B819EF500DA0307 /* DeltaCore.framework */; };
+		D5535A252B819F1300DA0307 /* GBADeltaCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5535A242B819F1300DA0307 /* GBADeltaCore.framework */; };
+		D5535A272B819F2800DA0307 /* libVBA-M.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5535A262B819F2800DA0307 /* libVBA-M.a */; };
+		D5535A292B819FFC00DA0307 /* GBCDeltaCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5535A282B819FFC00DA0307 /* GBCDeltaCore.framework */; };
 		D56365922B5B1646001364DC /* SaveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365912B5B1646001364DC /* SaveState.swift */; };
 		D56365952B5B291F001364DC /* ModelContainer+GBA4vOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */; };
 		D5A450972B508B9D00C9E5AA /* GBA4vOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450962B508B9D00C9E5AA /* GBA4vOSApp.swift */; };
@@ -19,7 +23,6 @@
 		D5A450AA2B508C2F00C9E5AA /* GameLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450A92B508C2F00C9E5AA /* GameLibraryView.swift */; };
 		D5A450AC2B508C4200C9E5AA /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450AB2B508C4200C9E5AA /* GameView.swift */; };
 		D5A450AE2B508CAD00C9E5AA /* Emerald.gba in Resources */ = {isa = PBXBuildFile; fileRef = D5A450AD2B508CA900C9E5AA /* Emerald.gba */; };
-		D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */ = {isa = PBXBuildFile; productRef = D5A450C52B509CAD00C9E5AA /* GBADeltaCore */; };
 		D5A450C82B50A3CD00C9E5AA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450C72B50A3CD00C9E5AA /* Game.swift */; };
 		D5A450D32B50B11100C9E5AA /* VisionGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A450D22B50B11100C9E5AA /* VisionGameViewController.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +32,11 @@
 		D54A6A612B7AE15D0014DAD9 /* DeltaSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaSkin.swift; sourceTree = "<group>"; };
 		D54A6A6A2B7AE7FF0014DAD9 /* DeltaSkinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaSkinsView.swift; sourceTree = "<group>"; };
 		D55359F62B80112900DA0307 /* View+If.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+If.swift"; sourceTree = "<group>"; };
+		D5535A1F2B819EDD00DA0307 /* DeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5535A222B819EF500DA0307 /* DeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5535A242B819F1300DA0307 /* GBADeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GBADeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5535A262B819F2800DA0307 /* libVBA-M.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libVBA-M.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5535A282B819FFC00DA0307 /* GBCDeltaCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GBCDeltaCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56365912B5B1646001364DC /* SaveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveState.swift; sourceTree = "<group>"; };
 		D56365942B5B291F001364DC /* ModelContainer+GBA4vOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+GBA4vOS.swift"; sourceTree = "<group>"; };
 		D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBA4vOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +57,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5A450C62B509CAD00C9E5AA /* GBADeltaCore in Frameworks */,
+				D5535A292B819FFC00DA0307 /* GBCDeltaCore.framework in Frameworks */,
+				D5535A272B819F2800DA0307 /* libVBA-M.a in Frameworks */,
+				D5535A252B819F1300DA0307 /* GBADeltaCore.framework in Frameworks */,
+				D5535A232B819EF500DA0307 /* DeltaCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +73,18 @@
 				D55359F62B80112900DA0307 /* View+If.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D5535A1E2B819EDD00DA0307 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5535A282B819FFC00DA0307 /* GBCDeltaCore.framework */,
+				D5535A262B819F2800DA0307 /* libVBA-M.a */,
+				D5535A242B819F1300DA0307 /* GBADeltaCore.framework */,
+				D5535A222B819EF500DA0307 /* DeltaCore.framework */,
+				D5535A1F2B819EDD00DA0307 /* DeltaCore.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D56365932B5B23EA001364DC /* Model */ = {
@@ -80,6 +103,7 @@
 				D5A450912B508B9D00C9E5AA /* GBA4vOS */,
 				D5A450922B508B9D00C9E5AA /* Packages */,
 				D5A450902B508B9D00C9E5AA /* Products */,
+				D5535A1E2B819EDD00DA0307 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,7 +168,6 @@
 			);
 			name = GBA4vOS;
 			packageProductDependencies = (
-				D5A450C52B509CAD00C9E5AA /* GBADeltaCore */,
 			);
 			productName = GBA4vOS;
 			productReference = D5A4508F2B508B9D00C9E5AA /* GBA4vOS.app */;
@@ -175,7 +198,6 @@
 			);
 			mainGroup = D5A450862B508B9D00C9E5AA;
 			packageReferences = (
-				D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */,
 			);
 			productRefGroup = D5A450902B508B9D00C9E5AA /* Products */;
 			projectDirPath = "";
@@ -416,25 +438,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rileytestut/GBADeltaCore.git";
-			requirement = {
-				branch = visionOS;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D5A450C52B509CAD00C9E5AA /* GBADeltaCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D5A450C42B509CAD00C9E5AA /* XCRemoteSwiftPackageReference "GBADeltaCore" */;
-			productName = GBADeltaCore;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D5A450872B508B9D00C9E5AA /* Project object */;
 }

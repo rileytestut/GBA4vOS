@@ -17,7 +17,7 @@ extension UTType
 
 struct ChooseGameView: View 
 {
-    @State
+    @SwiftUI.State
     private var isChoosingGame: Bool = false
     
     @Environment(\.openWindow)
