@@ -13,6 +13,7 @@ import DeltaCore
 extension UTType
 {
     static let gbaGame = UTType(filenameExtension: "gba")!
+    static let gbcGame = UTType(filenameExtension: "gbc")!
 }
 
 struct ChooseGameView: View 
@@ -27,7 +28,7 @@ struct ChooseGameView: View
         Button("Choose Game") {
             isChoosingGame = true
         }
-        .fileImporter(isPresented: $isChoosingGame, allowedContentTypes: [.gbaGame]) { result in
+        .fileImporter(isPresented: $isChoosingGame, allowedContentTypes: [.gbaGame, .gbcGame]) { result in
             do
             {
                 let fileURL = try result.get()
@@ -77,7 +78,15 @@ private extension ChooseGameView
             }
             
             let game = try Game(fileURL: destinationURL)
-            openWindow(id: SceneType.game.rawValue, value: game)
+            
+            if game.type == .gbc
+            {
+                openWindow(id: SceneType.gbcGame.rawValue, value: game)
+            }
+            else
+            {
+                openWindow(id: SceneType.game.rawValue, value: game)
+            }
         }
         catch
         {
