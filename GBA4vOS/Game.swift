@@ -13,14 +13,24 @@ import GBADeltaCore
 struct Game: GameProtocol, Codable, Hashable
 {
     var fileURL: URL
-    var type: GameType { .gba }
+    var type: GameType
     
     var sha1: String
 
     init(fileURL: URL) throws
     {
         self.fileURL = fileURL
-
+        
+        let pathExtension = fileURL.pathExtension.lowercased()
+        if pathExtension == "gbc" || pathExtension == "gb"
+        {
+            self.type = .gbc
+        }
+        else
+        {
+            self.type = .gba
+        }
+        
         let data = try Data(contentsOf: fileURL)
         let sha1Hash = Insecure.SHA1.hash(data: data)
         

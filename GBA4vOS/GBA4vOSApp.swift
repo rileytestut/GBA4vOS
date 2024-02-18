@@ -10,11 +10,13 @@ import SwiftData
 
 import DeltaCore
 import GBADeltaCore
+import GBCDeltaCore
 
 enum SceneType: String
 {
     case main
     case game
+    case gbcGame
 }
 
 @main
@@ -23,6 +25,7 @@ struct GBA4vOSApp: App {
     init()
     {
         Delta.register(GBA.core)
+        Delta.register(GBC.core)
         
         ExternalGameControllerManager.shared.startMonitoring()
     }
@@ -38,6 +41,13 @@ struct GBA4vOSApp: App {
         }
         .windowStyle(.plain)
         .defaultSize(width: 480 * 2, height: 320 * 2)
+        .modelContainer(.main)
+        
+        WindowGroup(id: SceneType.gbcGame.rawValue, for: Game.self) { $game in
+            GameView(game: game)
+        }
+        .windowStyle(.plain)
+        .defaultSize(width: 667, height: 375)
         .modelContainer(.main)
     }
 }
