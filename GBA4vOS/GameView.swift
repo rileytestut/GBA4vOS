@@ -121,7 +121,7 @@ struct GameView: View
                                        displayMode: isRotationEnabled ? .never : .always)
                 .scaleEffect(CGSize(width: scale, height: scale), anchor: .center)
                 .rotation3DEffect(zRotation)
-                .simultaneousGesture(rotateGesture.exclusively(before: tapGesture))
+                .simultaneousGesture(isRotationEnabled ? rotateGesture.exclusively(before: tapGesture) : nil) // Magic!
         }
         .onLongPressGesture {
             withAnimation { isShowingToolbar.toggle() }
