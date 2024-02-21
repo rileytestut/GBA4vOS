@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:GBA4vOS.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Dependencies/GBCDeltaCore/GBCDeltaCore.xcodeproj">
    </FileRef>
    <FileRef
@@ -9,8 +12,5 @@
    </FileRef>
    <FileRef
       location = "group:Dependencies/DeltaCore/DeltaCore.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:GBA4vOS.xcodeproj">
    </FileRef>
 </Workspace>
